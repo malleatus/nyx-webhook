@@ -5,12 +5,14 @@
   "description": "",
   "author": "David J. Hamilton <davidjh@hjdivad.com>",
   "scripts": {
+    "build": "tsc --build",
     "deploy": "./bin/deploy.sh",
-    "lint": "eslint .",
+    "lint": "eslint . --ext js,ts",
     "start": "./bin/serve.sh",
     "test": "echo \"No tests yet...\""
   },
   "devDependencies": {
+    "@types/node": "^13.13.5",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
     "eslint": "^6.8.0",

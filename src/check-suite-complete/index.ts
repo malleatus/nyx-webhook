@@ -1,6 +1,6 @@
 // https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=javascript
 
-module.exports = async function (context, req) {
+module.exports = async function checkSuiteComplete(context: any, req: any) {
   context.log('JavaScript HTTP trigger function processed a request.');
 
   if (req.query.name || (req.body && req.body.name)) {
