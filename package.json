@@ -1,0 +1,9 @@
+{
+  "name": "@malleatus/nyx-webhook",
+  "version": "0.1.0",
+  "description": "",
+  "scripts" : {
+    "test": "echo \"No tests yet...\""
+  },
+  "author": "David J. Hamilton <davidjh@hjdivad.com>"
+}
