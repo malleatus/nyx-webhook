@@ -1,18 +1,56 @@
-// https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=javascript
+// https://docs.microsoft.com/en-us/azure/azure-functions/
 
-module.exports = async function checkSuiteComplete(context: any, req: any) {
-  context.log('JavaScript HTTP trigger function processed a request.');
+// eslint-disable-next-line node/no-unsupported-features/es-syntax
+import Crypto from 'crypto';
 
-  if (req.query.name || (req.body && req.body.name)) {
-    context.bindings.msg = `ohai ${req.query.name || req.body.name}`;
+let key = process.env.githubWebhookSecret as string;
+
+interface AzureRequest {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  body: any;
+  headers: {
+    [key: string]: string | undefined;
+  };
+  query: QueryParams;
+}
+
+interface AzureResponse {
+  status?: number;
+  body: string;
+}
+
+interface Context {
+  // see function.json: bindings
+  binding: unknown;
+  res: AzureResponse;
+
+  log(message: string): void;
+}
+
+interface QueryParams {
+  [key: string]: string | undefined;
+}
+
+module.exports = async function checkSuiteComplete(
+  context: Context,
+  req: AzureRequest
+): Promise<void> {
+  context.log('nyx webhook received event');
+
+  let hmac = Crypto.createHmac('sha1', key);
+  let digest = hmac.update(JSON.stringify(req.body) || '').digest('hex');
+  let signature = `sha1=${digest}`;
+  let suppliedSignature = req.headers['x-hub-signature'];
+
+  if (signature !== suppliedSignature) {
     context.res = {
-      // status: 200, /* Defaults to 200 */
-      body: 'Hello ' + (req.query.name || req.body.name),
+      status: 401,
+      body: `Bad Signature`,
     };
-  } else {
-    context.res = {
-      status: 400,
-      body: 'Please pass a name on the query string or in the request body',
-    };
+    return;
   }
+
+  context.res = {
+    body: 'Thanks, that signature was great!',
+  };
 };
