@@ -1,9 +1,12 @@
 {
   "name": "@malleatus/nyx-webhook",
   "version": "0.1.0",
+  "private": true,
   "description": "",
-  "scripts" : {
+  "author": "David J. Hamilton <davidjh@hjdivad.com>",
+  "scripts": {
+    "deploy": "./bin/deploy.sh",
+    "start": "./bin/serve.sh",
     "test": "echo \"No tests yet...\""
-  },
-  "author": "David J. Hamilton <davidjh@hjdivad.com>"
+  }
 }
