@@ -1,0 +1,6 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./src/check-suite-complete" }
+  ]
+}
