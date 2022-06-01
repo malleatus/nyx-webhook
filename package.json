@@ -5,7 +5,7 @@
   "description": "",
   "author": "David J. Hamilton <davidjh@hjdivad.com>",
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc --build && cp src/check-suite-complete/function.json check-suite-complete/",
     "deploy": "./bin/deploy.sh",
     "lint": "eslint . --ext js,ts",
     "start": "./bin/serve.sh",
